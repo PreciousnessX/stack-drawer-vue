@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "declaration": true,
+        "baseUrl": ".",
+        "jsx": "preserve",
+        "target": "ES2020",
+        "lib": ["ESNext", "DOM", "DOM.Iterable"],
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "strict": true,
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "sourceMap": true,
+        "types": [],
+        "paths": {
+          "~/*": ["src/*"],
+          "@/*": ["example/src/*"]
+        }
+    },
+    "vueCompilerOptions": {
+        "target": 2.7
+    },
+    "exclude": ["esm/*", "build/*", "node_modules/*", "lib/*"]
+}
