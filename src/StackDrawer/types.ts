@@ -1,5 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import Vue from 'vue';
+import { Component, ComponentPublicInstance, App } from 'vue';
 
 // eslint-disable-next-line no-shadow
 export enum DOM_CLASS_LIST {
@@ -31,8 +31,9 @@ export interface EventCallBack extends Function {
 // 数据层 结构定义
 export interface StackDrawerModel {
 	vmWarp?: HTMLElement;
-	component: Vue.ComponentOptions<Vue>;
-	vm?: Vue;
+	component: Component;
+	app?: App;
+	vm?: ComponentPublicInstance;
 	propsData: any;
 	events: {
 		[key: string]: Function[];

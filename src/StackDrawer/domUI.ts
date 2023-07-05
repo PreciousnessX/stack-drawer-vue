@@ -1,5 +1,5 @@
-import Vue from 'vue';
-import { sleep } from './utils';
+import { h, createApp } from 'vue';
+import { sleep, capitalizeFirstLetter } from './utils';
 import { StackDrawerModel, DOM_CLASS_LIST } from './types';
 
 const transitionTimeOut = 600;
@@ -80,8 +80,9 @@ export function renderVm(model: StackDrawerModel, $warp: HTMLElement) {
 
 	const eventFns: { [key: string]: Function } = {};
 	Object.keys(events).forEach((key) => {
+		const eventName = `on${capitalizeFirstLetter(key)}`;
 		// eslint-disable-next-line func-names
-		eventFns[key] = function (...arg: any) {
+		eventFns[eventName] = function (...arg: any) {
 			const fns = events[key];
 			fns.forEach((fn) => {
 				if ((<any>fn)._keep_emit || model.activate) {
@@ -92,20 +93,18 @@ export function renderVm(model: StackDrawerModel, $warp: HTMLElement) {
 		};
 	});
 
-	const Component = Vue.extend({
-		components: { com: component },
-		store: options.store,
-		router: options.router,
+	const app = createApp({
 		data: () => ({
 			...propsData,
 		}),
-		render(h: Vue.CreateElement) {
-			return h('com', {
-				attrs: { ...this.$data },
-				on: eventFns,
+		render() {
+			return h(component, {
+				ref: 'drawerInstance',
+				...this.$data,
+				...eventFns,
 			});
 		},
-	} as any);
+	});
 
 	const $vmWarp = document.createElement('div');
 	$vmWarp.classList.add(DOM_CLASS_LIST.drawerMainClass);
@@ -124,10 +123,9 @@ export function renderVm(model: StackDrawerModel, $warp: HTMLElement) {
 		$vmWarp.classList.add(options.customClass);
 	}
 
-	const vm = new Component();
+	const vm = app.mount($vmWarp);
 
-	vm.$mount(); // 挂载
-	$vmWarp.appendChild(vm.$el);
+	model.app = app;
 	model.vm = vm;
 	model.vmWarp = $vmWarp;
 	$warp.appendChild($vmWarp);

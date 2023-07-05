@@ -1,30 +1,30 @@
 /* eslint-disable no-unused-expressions */
-import Vue from 'vue';
+// import { App } from 'vue';
 import { StackDrawerModel } from './types';
 
-function callHook(vm: Vue, name: keyof Vue.ComponentOptions<Vue>) {
-	if (typeof vm.$options[name] === 'function') {
-		(vm.$options[name] as Function)();
-	} else if (Array.isArray(vm.$options[name])) {
-		(vm.$options[name] as Array<unknown>).forEach((fn) => {
-			if (typeof fn === 'function') {
-				try {
-					fn.call(vm);
-				} catch (error) {
-					if ((error as any).stack) {
-						console.error((error as any).stack);
-					}
-				}
-			}
-		});
-	}
-	vm.$children.forEach((m) => callHook(m, name));
-}
+// function callHook(vm: App, name: keyof App) {
+// 	if (typeof vm.$options[name] === 'function') {
+// 		(vm.$options[name] as Function)();
+// 	} else if (Array.isArray(vm.$options[name])) {
+// 		(vm.$options[name] as Array<unknown>).forEach((fn) => {
+// 			if (typeof fn === 'function') {
+// 				try {
+// 					fn.call(vm);
+// 				} catch (error) {
+// 					if ((error as any).stack) {
+// 						console.error((error as any).stack);
+// 					}
+// 				}
+// 			}
+// 		});
+// 	}
+// 	vm.$children.forEach((m) => callHook(m, name));
+// }
 
 export function _destoryOne(model: StackDrawerModel) {
-	const { vmWarp, vm } = model;
+	const { vmWarp, app } = model;
 	vmWarp?.remove();
-	vm?.$destroy();
+	app?.unmount();
 }
 
 export function _destoryDrawer(models: StackDrawerModel[]) {
@@ -37,7 +37,7 @@ export function _activate(model?: StackDrawerModel) {
 	const { vm } = model;
 	if (!vm) return;
 	model.activate = true;
-	callHook(vm, 'activated');
+	// callHook(vm, 'activated');
 }
 
 // 上一个deactivated
@@ -46,6 +46,6 @@ export function _deactivate(model?: StackDrawerModel) {
 	if (!model.activate) return;
 	const { vm } = model;
 	if (!vm) return;
-	callHook(vm, 'deactivated');
+	// callHook(vm, 'deactivated');
 	model.activate = false;
 }

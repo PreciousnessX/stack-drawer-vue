@@ -1,6 +1,6 @@
 <template>
 	<div class="test-com">
-		<TestStackDrawerChild v-if="show" v-bind="$attrs" v-on="$listeners" />
+		<TestStackDrawerChild v-if="show" v-bind="$attrs" />
 		<div @click="show = !show">点击</div>
 		<div>
 			<div v-for="li in list" :key="li" class="li" @click="clickOne(li)">

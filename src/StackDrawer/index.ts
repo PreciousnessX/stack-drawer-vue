@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
 /* eslint-disable no-shadow */
 /* eslint-disable no-use-before-define */
-import Vue from 'vue';
+import { Component } from 'vue';
 import './stackDrawerStyle.scss';
 import { startWidthOpPerfix, transformKey } from './utils';
 import {
@@ -127,7 +127,7 @@ const getStackDrawerClass = () =>
 
 		// 可级联调用
 		static push(
-			component: Vue.ComponentOptions<Vue>,
+			component: Component,
 			propsData: any,
 			options: StackDrawerOptions = {}
 		) {
@@ -138,7 +138,7 @@ const getStackDrawerClass = () =>
 
 		// 可级联调用
 		static replace(
-			component: Vue.ComponentOptions<Vue>,
+			component: Component,
 			propsData: any,
 			options: StackDrawerOptions = {}
 		) {
@@ -337,7 +337,7 @@ const getStackDrawerClass = () =>
 		}
 
 		_push(
-			component: Vue.ComponentOptions<Vue>,
+			component: Component,
 			propsData: any = {},
 			options: StackDrawerOptions = {}
 		) {
@@ -361,7 +361,7 @@ const getStackDrawerClass = () =>
 		}
 
 		_replace(
-			component: Vue.ComponentOptions<Vue>,
+			component: Component,
 			propsData: any = {},
 			options: StackDrawerOptions = {}
 		) {
@@ -472,7 +472,7 @@ const getStackDrawerClass = () =>
 
 		static _setProps(key: string, value: any) {
 			const ins = StackDrawer._getStackDrawer();
-			return ins._insSetProps(key, value);
+			ins._insSetProps(key, value);
 		}
 
 		static _getVmData(key: string) {
@@ -491,7 +491,7 @@ const getStackDrawerClass = () =>
 		_insGetVmData(key: string) {
 			if (this.currentModel) {
 				const { vm, propsData } = this.currentModel;
-				const target = vm?.$children[0];
+				const target = vm?.$refs.drawerInstance;
 				if (target) {
 					let value = (target as Record<string, any>)[key];
 					if (value === undefined) {

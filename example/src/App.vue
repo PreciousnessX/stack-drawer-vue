@@ -1,5 +1,6 @@
 <template>
 	<div class="my-app">
+		我的APP
 		<TestStackDrawer />
 	</div>
 </template>

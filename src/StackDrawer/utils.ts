@@ -10,3 +10,6 @@ const OP_PERFIX = '$$';
 export const startWidthOpPerfix = (key: string) => key.indexOf(OP_PERFIX) === 0;
 
 export const transformKey = (key: string) => key.slice(OP_PERFIX.length);
+
+export const capitalizeFirstLetter = (str: string) =>
+	str.charAt(0).toUpperCase() + str.slice(1);
