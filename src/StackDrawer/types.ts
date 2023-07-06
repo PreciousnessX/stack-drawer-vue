@@ -1,5 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import { Component, ComponentPublicInstance, App } from 'vue';
+import { Component, ComponentPublicInstance, App, Ref } from 'vue';
 
 // eslint-disable-next-line no-shadow
 export enum DOM_CLASS_LIST {
@@ -38,9 +38,11 @@ export interface StackDrawerModel {
 	events: {
 		[key: string]: Function[];
 	};
-	activate: boolean;
+	activate: Ref<boolean>;
 	options: StackDrawerOptions;
 	lastModel?: StackDrawerModel;
 	onActivateCbs?: Function[];
 	onDeactivateCbs?: Function[];
 }
+
+export type StackDrawerActive = Ref<boolean>;

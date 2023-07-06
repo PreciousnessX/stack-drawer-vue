@@ -2,7 +2,7 @@
 	<div style="font-size: 14px; color: #000" @click="tap">{{ aaa }}-dian</div>
 </template>
 <script lang="ts">
-import { defineComponent, onActivated, onMounted } from 'vue';
+import { defineComponent, onMounted, inject, Ref, watch } from 'vue';
 
 export default defineComponent({
 	props: {
@@ -11,9 +11,11 @@ export default defineComponent({
 		},
 	},
 	setup(props, { emit }) {
-		onActivated(() => {
-			console.log('onActivated2');
+		const activate = inject<Ref<boolean>>('drawerActivate')!;
+		watch(activate, () => {
+			console.log('activate 变化22222', activate?.value);
 		});
+
 		console.log(123);
 		const tap = () => {
 			emit('tap', 'xxxxxxxxxxxxx');

@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
 /* eslint-disable no-shadow */
 /* eslint-disable no-use-before-define */
-import { Component } from 'vue';
+import { Component, ref } from 'vue';
 import './stackDrawerStyle.scss';
 import { startWidthOpPerfix, transformKey } from './utils';
 import {
@@ -347,7 +347,7 @@ const getStackDrawerClass = () =>
 			this.currentModel = {
 				component,
 				propsData,
-				activate: true,
+				activate: ref(true),
 				events: {},
 				lastModel: this.currentModel,
 				options: mOptions,

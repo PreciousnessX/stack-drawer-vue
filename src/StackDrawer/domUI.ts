@@ -1,4 +1,4 @@
-import { h, createApp } from 'vue';
+import { h, createApp, provide } from 'vue';
 import { sleep, capitalizeFirstLetter } from './utils';
 import { StackDrawerModel, DOM_CLASS_LIST } from './types';
 
@@ -85,7 +85,7 @@ export function renderVm(model: StackDrawerModel, $warp: HTMLElement) {
 		eventFns[eventName] = function (...arg: any) {
 			const fns = events[key];
 			fns.forEach((fn) => {
-				if ((<any>fn)._keep_emit || model.activate) {
+				if ((<any>fn)._keep_emit || model.activate.value) {
 					// 非活跃状态下不触发事件
 					fn(...arg);
 				}
@@ -94,6 +94,9 @@ export function renderVm(model: StackDrawerModel, $warp: HTMLElement) {
 	});
 
 	const app = createApp({
+		setup() {
+			provide('drawerActivate', model.activate);
+		},
 		data: () => ({
 			...propsData,
 		}),

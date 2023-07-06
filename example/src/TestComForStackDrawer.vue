@@ -10,7 +10,7 @@
 	</div>
 </template>
 <script lang="ts">
-import { defineComponent, onActivated } from 'vue';
+import { defineComponent, inject, watch, Ref } from 'vue';
 
 import TestStackDrawerChild from './TestStackDrawerChild.vue';
 
@@ -20,9 +20,11 @@ export default defineComponent({
 		list: Array<string>,
 	},
 	setup(props, { emit }) {
-		onActivated(() => {
-			console.log('onActivated');
+		const activate = inject<Ref<boolean>>('drawerActivate')!;
+		watch(activate, () => {
+			console.log('activate 变化', activate?.value);
 		});
+
 		const clickOne = (da: string) => {
 			emit('test', da);
 		};
@@ -35,12 +37,6 @@ export default defineComponent({
 	data: () => ({
 		show: false,
 	}),
-	activated() {
-		console.log('activated');
-	},
-	deactivated() {
-		console.log('xxxx deactivated');
-	},
 });
 </script>
 
