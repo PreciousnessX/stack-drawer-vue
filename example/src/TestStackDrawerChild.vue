@@ -11,9 +11,9 @@ export default defineComponent({
 		},
 	},
 	setup(props, { emit }) {
-		const activate = inject<Ref<boolean>>('drawerActivate')!;
-		watch(activate, () => {
-			console.log('activate 变化22222', activate?.value);
+		const drawerActivate = inject<Ref<boolean>>('drawerActivate')!;
+		watch(drawerActivate, () => {
+			console.log('activate 变化22222', drawerActivate?.value);
 		});
 
 		console.log(123);
